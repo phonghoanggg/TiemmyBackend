@@ -1,0 +1,16 @@
+1. Tạo API đăng ký
+2. Tạo API đăng nhập
+3. Tạo access + refresh token cho user
+4. Tạo API update user
+5. Tạo API delete user
+6. Tạo quyền cho Admin => khi isAdmin = true thì mới có quyền xóa user
+7. Tạo API getAllUser => Khi isAdmin = true thì mới có quyền getUser
+8. Tạo API getdetailsUser
+9. Cấp mới token khi access_token hết hạn
+10. Tạo API thêm mới sản phẩm
+11. Tạo API update sản phẩm
+12. Tạo API delete sản phẩm
+13. Tạo API get detail sản phẩm
+14. Tạo API get-all sản phẩm
+15.Tạo API filter and sort
+16. Tích hợp react query

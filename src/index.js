@@ -1,22 +1,29 @@
 const express = require("express");
 const dotenv = require('dotenv')
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const routes = require("./routes");
+const cors = require('cors')
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 dotenv.config()
 
 const app = express()
 const port = process.env.PORT || 3001
+app.use(cors())
+app.use(bodyParser.json())
+app.use(cookieParser())
 
-app.get('/', (req, res) => {
-    res.send('Helllo bé kakak')
-})
-console.log("====>", process.env.MONGO_DB)
-mongoose.connect(`mongodb+srv://:${process.env.MONGO_DB}@cluster0.vvglb5c.mongodb.net/`)
+routes(app)
+
+// connect with mongoose DB
+mongoose.connect(`${process.env.MONGO_DB}`)
     .then(() => {
-        console.log("Connect DB successs!")
+        console.log("Connect DB success!")
     })
     .catch((err) => {
         console.log(err)
     })
+
 app.listen(port, () => {
-    console.log("kakaakak", port)
+    console.log('Server is running in port: ', +port)
 })
