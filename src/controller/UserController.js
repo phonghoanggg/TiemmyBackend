@@ -1,5 +1,6 @@
 const UserService = require('../services/UserService')
 const JwtService = require('../services/JwtService')
+const User = require('../models/UserModel')
 
 const createUser = async (req, res) => {
     try {
@@ -39,7 +40,8 @@ const loginUser = async (req, res) => {
         const { email, password} = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
-        console.log("first", email, password)
+        console.log("isCheckEmail",isCheckEmail)
+
         if(!email || !password) {
             return res.status(200).json({
                 status:"ERR",
@@ -53,6 +55,7 @@ const loginUser = async (req, res) => {
         } 
         const response  = await UserService.loginUser(req.body)
         const {refresh_token,...newRespone} = response
+        // Khởi tạo 1 cookie lưu trữ refresh_token để giữ phiên đăng nhập
         res.cookie("refresh_token", refresh_token, {
             httpOnly: true,
             Secure: false,
@@ -76,7 +79,6 @@ const updateUser = async (req, res) => {
                 message:"The userId is required"
             })
         }
-
         const response  = await UserService.updateUser(userId,data)
         return res.status(200).json(response)
 
@@ -157,6 +159,7 @@ const refreshToken = async (req, res) => {
 const logoutUser= async (req, res) => {
     try {
         res.clearCookie("refresh_token")
+
         return res.status(200).json({
             status:"OK",
             message:"Logout successfully"

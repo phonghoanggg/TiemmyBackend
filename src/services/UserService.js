@@ -42,15 +42,16 @@ const loginUser = (userLogin) => {
             const checkUser = await User.findOne({
                 email:email
             })
+            console.log("checkUser",checkUser)
             if(checkUser === null) {
-                resolve({
+                reject({
                     status:"ERR",
                     message:"The user is not defined "
                 })
             }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
             console.log("comparePassword",comparePassword)
-            if(!comparePassword) {
+            if(!comparePassword ) {
                 resolve({
                     status:"OK",
                     message:"The password or user is incorrect",
@@ -92,8 +93,6 @@ const updateUser = (id,data) => {
                 })
             }
             const updatedUser = await User.findByIdAndUpdate(id, data, {new: true})
-            console.log("updatedUser",updatedUser)
-
             resolve({
                 status:"OK",
                 message:"SUCCESS",
