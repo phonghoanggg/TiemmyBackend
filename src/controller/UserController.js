@@ -35,6 +35,33 @@ const createUser = async (req, res) => {
         })
     }
 }
+const createUserAdmin = async (req, res) => {
+    try {
+        const {name, email, password, phone, isAdmin, address, image} = req.body
+        const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        const isCheckEmail = reg.test(email)
+
+        if(!email || !password || !isAdmin || !address || !name) {
+            return res.status(200).json({
+                status:"ERR",
+                message:"Hãy điền đầy đủ thông tin"
+            })
+        } else if(!isCheckEmail) {
+            return res.status(200).json({
+                status:"ERR",
+                message:"Email không phù hợp"
+            })
+        } 
+        const response  = await UserService.createUserAdmin(req.body)
+
+        return res.status(200).json(response)
+
+    } catch(e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
 const loginUser = async (req, res) => {
     try {
         const { email, password} = req.body
@@ -179,5 +206,6 @@ module.exports = {
     getAllUser,
     getDetailsUser,
     refreshToken,
-    logoutUser
+    logoutUser,
+    createUserAdmin
 }

@@ -11,7 +11,7 @@ const createProduct = (newProduct) => {
             })
             if(checkProduct !== null) {
                 resolve({
-                    status:"OK",
+                    status:"ERR",
                     message:"The name of product is exist "
                 })
             }
@@ -36,7 +36,6 @@ const updateProduct = (id,data) => {
             const checkProduct = await Product.findOne({
                 _id: id
             })
-
             if(checkProduct === null) {
                 resolve({
                     status:"OK",
@@ -44,8 +43,6 @@ const updateProduct = (id,data) => {
                 })
             }
             const updatedProduct = await Product.findByIdAndUpdate(id, data, { new: true })
-            console.log("updatedUser",updatedUser)
-
             resolve({
                 status:"OK",
                 message:"SUCCESS",
@@ -65,7 +62,7 @@ const getDetailsProduct = (id) => {
 
             if(pruduct === null) {
                 resolve({
-                    status:"OK",
+                    status:"ERR",
                     message:"The pruduct is not defined "
                 })
             }

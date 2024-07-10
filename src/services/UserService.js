@@ -34,6 +34,39 @@ const createUser = (newUser) => {
         }
     })
 }
+const createUserAdmin = (newUser) => {
+    return new Promise(async (resolve, reject) => {
+        const {name, email, password, phone,isAdmin, address, image} = newUser
+        try {
+            // Check trùng email
+            const checkUser = await User.findOne({
+                email:email
+            })
+            if(checkUser === null) {
+                resolve({
+                    status:"ERR",
+                    message:"Email đã tồn tại"
+                })
+            }
+            // Mã hóa password
+            const hash = bcrypt.hashSync(password, 10);
+            const createUser = await User.create({
+                name, email, password : hash, confirmPassword: hash, phone,isAdmin, address, image
+            })
+            console.log("checkUser",createUser)
+      
+            if(createUser) {
+                resolve({
+                    status:"OK",
+                    message:"SUCCESS",
+                    data: createUser
+                })
+            }
+        } catch(e) {
+            reject(e)
+        }
+    })
+}
 const loginUser = (userLogin) => {
     return new Promise(async (resolve, reject) => {
         const { email, password} = userLogin
@@ -171,4 +204,5 @@ module.exports = {
     deleteUser,
     getAllUser,
     getDetailsUser,
+    createUserAdmin
 }
