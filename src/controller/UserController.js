@@ -41,7 +41,7 @@ const createUserAdmin = async (req, res) => {
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
 
-        if(!email || !password || !isAdmin || !address || !name) {
+        if(!email || !password || !address || !name) {
             return res.status(200).json({
                 status:"ERR",
                 message:"Hãy điền đầy đủ thông tin"

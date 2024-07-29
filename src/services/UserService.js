@@ -42,7 +42,8 @@ const createUserAdmin = (newUser) => {
             const checkUser = await User.findOne({
                 email:email
             })
-            if(checkUser === null) {
+            console.log("checkUser", checkUser)
+            if( checkUser && checkUser === null) {
                 resolve({
                     status:"ERR",
                     message:"Email đã tồn tại"
@@ -121,14 +122,14 @@ const updateUser = (id,data) => {
 
             if(checkUser === null) {
                 resolve({
-                    status:"OK",
+                    status:"Error",
                     message:"The user is not defined "
                 })
             }
             const updatedUser = await User.findByIdAndUpdate(id, data, {new: true})
             resolve({
-                status:"OK",
-                message:"SUCCESS",
+                status:"success",
+                message:"Update user success",
                 data: updatedUser
             })
         } catch(e) {
