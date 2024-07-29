@@ -12,6 +12,7 @@ router.get('/get-details/:id', ProductRouter.getDetailsProduct)
 // xóa
 router.delete('/delete/:id',authMiddleWare, ProductRouter.deleteProduct)
 router.get('/get-all', ProductRouter.getAllProduct)
+router.post('/delete-many', ProductRouter.deleteManyProduct)
 
 
 

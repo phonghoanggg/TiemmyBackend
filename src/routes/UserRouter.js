@@ -13,5 +13,6 @@ router.get('/get-details/:id',authUserMiddleWare, UserController.getDetailsUser)
 router.post('/refresh-token', UserController.refreshToken)
 // Tạo mới tài khoản
 router.post('/create-user', UserController.createUserAdmin)
+router.post('/delete-many', UserController.deleteMany)
 
 module.exports = router
