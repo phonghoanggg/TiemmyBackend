@@ -40,7 +40,7 @@ const createUserAdmin = async (req, res) => {
         const {name, email, password, phone, isAdmin, address, image} = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
-
+        console.log("req.body",req.body)
         if(!email || !password || !address || !name) {
             return res.status(200).json({
                 status:"ERR",
